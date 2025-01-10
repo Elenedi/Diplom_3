@@ -11,8 +11,11 @@ import static org.hamcrest.Matchers.equalTo;
 import org.example.references.Constants;
 import org.example.references.Browsers;
 import org.example.page.object.HomePage;
+import org.example.objects.AcceptUser;
+import org.example.objects.User;
+import io.github.bonigarcia.wdm.*;
 
-@DisplayName("Проверка конструктора (главной страницы)")
+@DisplayName("Проверка главной страницы")
 public class HomePageTest {
         private WebDriver webDriver;
         private HomePage homePage;
@@ -22,7 +25,7 @@ public class HomePageTest {
         public void startUp() {
             String browserName = System.getProperty("browser", "chrome");
             webDriver = Browsers.createDriver(browserName);
-            webDriver.get(Constants.MAIN_PAGE_URL);
+            webDriver.get(Constants.HOME_PAGE_URL);
             homePage = new HomePage(webDriver);
         }
         @After
@@ -32,50 +35,50 @@ public class HomePageTest {
         }
 
         @Test
-        @Step("Нажатие на вкладку Булочки")
-        @DisplayName("Проверка работы вкладки Булочки в разделе с ингредиентами")
+        @Step("Нажатие опции Булки")
+        @DisplayName("Проверка работы опции Булки")
         public void checkScrollToBunIsSuccess() {
             Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
-            homePage.clickFillingButton();
-            homePage.clickBunButton();
-            homePage.scrollAndWait(homePage.getBunTypes());
+            homePage.clickFillingsButton();
+            homePage.clickBunsButton();
+            homePage.scrollAndWait(homePage.getBunsTypes());
 
             MatcherAssert.assertThat(
-                    "Список 'Булочки' не видно на странице",
-                    webDriver.findElement(homePage.getBunTypes()).isDisplayed(),
+                    "Список 'Булки' не отображается на странице",
+                    webDriver.findElement(homePage.getBunsTypes()).isDisplayed(),
                     equalTo(true)
             );
         }
 
         @Test
-        @Step("Нажатие на вкладку Соусы")
-        @DisplayName("Проверка работы вкладки Соусы в разделе с ингредиентами")
+        @Step("Нажатие опции Соусы")
+        @DisplayName("Проверка работы опции Соусы")
         public void checkScrollToSauceIsSuccess() {
             Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
-            homePage.clickSauceButton();
-            homePage.scrollAndWait(homePage.getSauceTypes());
+            homePage.clickSaucesButton();
+            homePage.scrollAndWait(homePage.getSaucesTypes());
 
             MatcherAssert.assertThat(
-                    "Список 'Соусы' не видно на странице",
-                    webDriver.findElement(homePage.getSauceTypes()).isDisplayed(),
+                    "Список 'Соусы' не отображается на странице",
+                    webDriver.findElement(homePage.getSaucesTypes()).isDisplayed(),
                     equalTo(true)
             );
         }
 
         @Test
-        @Step("Нажатие на вкладку Начинки")
-        @DisplayName("Проверка работы вкладки Начинки в разделе с ингредиентами")
+        @Step("Нажатие опции Начинки")
+        @DisplayName("Проверка работы опции Начинки")
         public void checkScrollToFillingIsSuccess() {
             Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
-            homePage.clickFillingButton();
-            homePage.scrollAndWait(homePage.getFillingTypes());
+            homePage.clickFillingsButton();
+            homePage.scrollAndWait(homePage.getFillingsTypes());
 
             MatcherAssert.assertThat(
-                    "Список 'Начинки' не видно на странице",
-                    webDriver.findElement(homePage.getFillingTypes()).isDisplayed(),
+                    "Список 'Начинки' не отображается на странице",
+                    webDriver.findElement(homePage.getFillingsTypes()).isDisplayed(),
                     equalTo(true)
             );
         }

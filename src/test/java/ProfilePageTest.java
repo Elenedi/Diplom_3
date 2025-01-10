@@ -17,7 +17,7 @@ import org.example.page.object.ProfilePage;
 import org.example.page.object.AuthorisationPage;
 import org.example.page.object.HomePage;
 
-@DisplayName("Проверка личного кабинета пользователя")
+@DisplayName("Проверка профиля пользователя")
 public class ProfilePageTest {
     private WebDriver webDriver;
     private AuthorisationPage authPage;
@@ -29,11 +29,11 @@ public class ProfilePageTest {
     Faker faker = new Faker();
 
     @Before
-    @Step("Запуск браузера, подготовка тестовых данных")
+    @Step("Запуск браузера")
     public void startUp() {
         String browserName = System.getProperty("browser", "chrome");
         webDriver = Browsers.createDriver(browserName);
-        webDriver.get(Constants.MAIN_PAGE_URL);
+        webDriver.get(Constants.HOME_PAGE_URL);
 
         authPage = new AuthorisationPage(webDriver);
         homePage = new HomePage(webDriver);
@@ -41,7 +41,7 @@ public class ProfilePageTest {
 
         name = faker.name().firstName();
         email = faker.internet().safeEmailAddress();
-        password = faker.letterify("????????");
+        password = faker.letterify("12345678");
 
         Allure.addAttachment("Имя", name);
         Allure.addAttachment("Email", email);
@@ -50,13 +50,13 @@ public class ProfilePageTest {
         new UserOperators().createUser(name, email, password);
     }
     @After
-    @Step("Закрытие браузера, очистка тестовых данных")
+    @Step("Закрытие браузера")
     public void tearDown() {
         webDriver.quit();
         new UserOperators().deleteUser(email, password);
     }
 
-    @Step("Процесс авторизации")
+    @Step("Авторизация")
     private void authUser() {
         authPage.setEmail(email);
         authPage.setPassword(password);
@@ -65,9 +65,9 @@ public class ProfilePageTest {
         authPage.waitFormIsSubmitted();
     }
 
-    @Step("Переход в личный кабинет")
+    @Step("Переход в профиль")
     private void goToProfile() {
-        webDriver.get(Constants.LOGIN_PAGE_URL);
+        webDriver.get(Constants.LOG_IN_PAGE_URL);
         authPage.waitAuthFormVisible();
         authUser();
 
@@ -75,7 +75,7 @@ public class ProfilePageTest {
         profilePage.waitWhenAuthFormIsVisible();
     }
     @Test
-    @DisplayName("Проверка перехода по клику на 'Личный кабинет'")
+    @DisplayName("Проверка перехода в 'Личный кабинет'")
     public void checkLinkToProfileIsSuccess() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
         goToProfile();
@@ -87,7 +87,7 @@ public class ProfilePageTest {
     }
 
     @Test
-    @DisplayName("Проверка перехода из личного кабинета по клику на 'Конструктор'")
+    @DisplayName("Проверка перехода по клику по 'Конструктор'")
     public void checkLinkToConstructorIsSuccess() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
@@ -97,13 +97,13 @@ public class ProfilePageTest {
         homePage.waitHeaderIsVisible();
 
         MatcherAssert.assertThat(
-                "Текст на кнопке 'Войти в аккаунт' должен поменяться на 'Оформить заказ'",
+                "Текст 'Войти в аккаунт' меняется на 'Оформить заказ'",
                 homePage.getAuthButtonText(),
                 equalTo("Оформить заказ")
         );
     }
     @Test
-    @DisplayName("Проверка перехода из личного кабинета по клику на логотип Stellar Burgers")
+    @DisplayName("Проверка перехода по клику логотипа Stellar Burgers")
     public void checkLinkOnLogoIsSuccess() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
@@ -113,13 +113,13 @@ public class ProfilePageTest {
         homePage.waitHeaderIsVisible();
 
         MatcherAssert.assertThat(
-                "Текст на кнопке 'Войти в аккаунт' должен поменяться на 'Оформить заказ'",
+                "Текст 'Войти в аккаунт' меняется на 'Оформить заказ'",
                 homePage.getAuthButtonText(),
                 equalTo("Оформить заказ")
         );
     }
     @Test
-    @DisplayName("Проверка выхода из личного кабинета по клику на кнопку 'Выйти'")
+    @DisplayName("Проверка выхода из профиля по клику кнопки 'Выйти'")
     public void checkLinkLogOutIsSuccess() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 

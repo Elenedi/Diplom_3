@@ -2,6 +2,7 @@ package org.example.objects;
 
 import lombok.Getter;
 import lombok.Setter;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class User {
     @Getter

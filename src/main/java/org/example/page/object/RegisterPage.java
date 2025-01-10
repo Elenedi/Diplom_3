@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class RegisterPage {
     private final WebDriver webDriver;
@@ -19,20 +20,20 @@ public class RegisterPage {
     public RegisterPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
-    @Step("Ввод значения в поле 'Имя'")
+    @Step("Ввод данных в поле 'Имя'")
     public void setName(String name) {
         webDriver.findElements(inputsField).get(0).sendKeys(name);
     }
-    @Step("Ввод значения в поле 'Email'")
+    @Step("Ввод данных в поле 'Email'")
     public void setEmail(String email) {
         webDriver.findElements(inputsField).get(1).sendKeys(email);
     }
-    @Step("Ввод значения в поле 'Пароль'")
+    @Step("Ввод данных в поле 'Пароль'")
     public void setPassword(String password) {
         webDriver.findElements(inputsField).get(2).sendKeys(password);
     }
 
-    @Step("Клик по кнопке регистрации")
+    @Step("Нажатие кнопки регистрации")
     public void clickRegisterButton() {
         waitWhenButtonIsClickable();
         webDriver.findElement(registerButton).click();
@@ -46,7 +47,7 @@ public class RegisterPage {
         new WebDriverWait(webDriver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.textToBe(title, expectedTitle));
     }
-    public void waitErrorIsVisible() {
+    public void waitTillErrorIsVisible() {
         new WebDriverWait(webDriver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOf(webDriver.findElement(errorMessage)));
     }

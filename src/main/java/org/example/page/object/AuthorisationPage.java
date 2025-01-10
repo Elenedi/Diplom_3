@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class AuthorisationPage {
     private WebDriver webDriver;
@@ -19,16 +20,16 @@ public class AuthorisationPage {
         this.webDriver = webDriver;
     }
 
-    @Step("Ввод значения в поле 'Email'")
+    @Step("Ввод данных в поле 'Email'")
     public void setEmail(String email) {
         webDriver.findElements(inputsField).get(0).sendKeys(email);
     }
-    @Step("Ввод значения в поле 'Пароль'")
+    @Step("Ввод данных в поле 'Пароль'")
     public void setPassword(String password) {
         webDriver.findElements(inputsField).get(1).sendKeys(password);
     }
 
-    @Step("Нажатие на кнопку авторизации")
+    @Step("Нажатие кнопки авторизации")
     public void clickAuthButton() {
         waitWhenButtonIsClickable();
         webDriver.findElement(authButton).click();

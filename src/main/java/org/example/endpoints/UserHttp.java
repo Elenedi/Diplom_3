@@ -7,6 +7,7 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.response.Response;
 import org.example.objects.User;
 import org.example.references.Constants;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class UserHttp {
     private RequestSpecification baseRequest() {
@@ -26,12 +27,12 @@ public class UserHttp {
         return given(this.baseRequest("application/json"))
                 .body(new User(email, password))
                 .when()
-                .post(Constants.API_LOGIN);
+                .post(Constants.LOG_IN_URL);
     }
-    protected Response deleteUser(String token) {
-        return given(this.baseRequest())
+    protected void deleteUser(String token) {
+        given(this.baseRequest())
                 .auth().oauth2(token)
-                .delete(Constants.API_DELETE_USER);
+                .delete(Constants.DELETE_USER_URL);
     }
 }
 

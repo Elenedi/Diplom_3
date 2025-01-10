@@ -17,7 +17,7 @@ import org.example.page.object.RegisterPage;
 import org.example.page.object.HomePage;
 import org.example.page.object.LostPasswordPage;
 
-@DisplayName("Авторизация пользователя")
+@DisplayName("Авторизация")
 public class AutorisationPageTest {
     private WebDriver webDriver;
     private AuthorisationPage authPage;
@@ -30,11 +30,11 @@ public class AutorisationPageTest {
     Faker faker = new Faker();
 
     @Before
-    @Step("Запуск браузера, подготовка тестовых данных")
+    @Step("Запуск браузера")
     public void startUp() {
         String browserName = System.getProperty("browser", "chrome");
         webDriver = Browsers.createDriver(browserName);
-        webDriver.get(Constants.MAIN_PAGE_URL);
+        webDriver.get(Constants.HOME_PAGE_URL);
 
         authPage = new AuthorisationPage(webDriver);
         homePage = new HomePage(webDriver);
@@ -43,7 +43,7 @@ public class AutorisationPageTest {
 
         name = faker.name().firstName();
         email = faker.internet().safeEmailAddress();
-        password = faker.letterify("???????");
+        password = faker.letterify("12345678");
 
         Allure.addAttachment("Имя", name);
         Allure.addAttachment("Email", email);
@@ -53,13 +53,13 @@ public class AutorisationPageTest {
     }
 
     @After
-    @Step("Закрытие браузера, очистка тестовых данных")
+    @Step("Закрытие браузера")
     public void tearDown() {
         webDriver.quit();
         new UserOperators().deleteUser(email, password);
     }
 
-    @Step("Авторизация пользователя")
+    @Step("Авторизация")
     private void authUser() {
         authPage.setEmail(email);
         authPage.setPassword(password);
@@ -68,7 +68,7 @@ public class AutorisationPageTest {
     }
 
     @Test
-    @DisplayName("Вход через клик по кнопке 'Войти в аккаунт' на главной")
+    @DisplayName("Вход по кнопке 'Войти в аккаунт' на главной")
     public void authHomePageButtonIsSuccess() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
@@ -77,14 +77,14 @@ public class AutorisationPageTest {
         authUser();
 
         MatcherAssert.assertThat(
-                "Текст на кнопке 'Войти в аккаунт' должен поменяться на 'Оформить заказ'",
+                "Текст на кнопке должен поменяться на 'Оформить заказ'",
                 homePage.getAuthButtonText(),
                 equalTo("Оформить заказ")
         );
     }
 
     @Test
-    @DisplayName("Вход через клик по кнопке 'Личный Кабинет' в хеддере страницы")
+    @DisplayName("Вход по кнопке 'Личный Кабинет' вверху страницы")
     public void authProfileButtonIsSuccess() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
@@ -93,25 +93,25 @@ public class AutorisationPageTest {
         authUser();
 
         MatcherAssert.assertThat(
-                "Текст на кнопке 'Войти в аккаунт' должен поменяться на 'Оформить заказ'",
+                "Текст 'Войти в аккаунт' должен поменяться на 'Оформить заказ'",
                 homePage.getAuthButtonText(),
                 equalTo("Оформить заказ")
         );
     }
 
     @Test
-    @DisplayName("Вход через формy восстановления пароля")
+    @DisplayName("Вход по форме восстановления пароля")
     public void authLinkLostPasswordFormIsSuccess() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
-        webDriver.get(Constants.FORGOT_PASSWORD_URL);
+        webDriver.get(Constants.LOST_PASSWORD_URL);
 
         regPage.clickAuthLink();
         authPage.waitAuthFormVisible();
         authUser();
 
         MatcherAssert.assertThat(
-                "Текст на кнопке 'Войти в аккаунт' должен поменяться на 'Оформить заказ'",
+                "Текст на кнопке 'Войти в аккаунт' меняется на 'Оформить заказ'",
                 homePage.getAuthButtonText(),
                 equalTo("Оформить заказ")
         );

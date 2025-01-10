@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
 import lombok.Getter;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class HomePage {
     private WebDriver webDriver;
@@ -82,19 +83,19 @@ public class HomePage {
         return webDriver.findElement(authButton).getText();
     }
 
-    public void clickBunButton() {
+    public void clickBunsButton() {
         waitWhenButtonIsClickable();
         webDriver.findElement(bunsButton).click();
         scrollAndWait(bunsTypes);
     }
 
-    public void clickSauceButton() {
+    public void clickSaucesButton() {
         waitWhenButtonIsClickable();
         webDriver.findElement(saucesButton).click();
         scrollAndWait(saucesTypes);
     }
 
-    public void clickFillingButton() {
+    public void clickFillingsButton() {
         waitWhenButtonIsClickable();
         webDriver.findElement(fillingsButton).click();
         scrollAndWait(fillingsTypes);

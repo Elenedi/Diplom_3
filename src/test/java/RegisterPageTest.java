@@ -16,7 +16,7 @@ import org.example.page.object.RegisterPage;
 
 import static org.hamcrest.Matchers.equalTo;
 
-@DisplayName("Регистрация нового пользователя")
+@DisplayName("Регистрация пользователя")
 public class RegisterPageTest {
     private WebDriver webDriver;
     private RegisterPage registerPage;
@@ -26,7 +26,7 @@ public class RegisterPageTest {
     Faker faker = new Faker();
 
     @Before
-    @Step("Запуск браузера, подготовка тестовых данных")
+    @Step("Запуск браузера")
     public void startUp() {
         String browserName = System.getProperty("browser", "chrome");
         webDriver = Browsers.createDriver(browserName);
@@ -36,7 +36,7 @@ public class RegisterPageTest {
 
         name = faker.name().firstName();
         email = faker.internet().safeEmailAddress();
-        password = faker.letterify("????????");
+        password = faker.letterify("12345678");
 
         Allure.addAttachment("Имя", name);
         Allure.addAttachment("Email", email);
@@ -44,14 +44,14 @@ public class RegisterPageTest {
     }
 
     @After
-    @Step("Закрытие браузера, очистка тестовых данных")
+    @Step("Закрытие браузера")
     public void tearDown() {
         webDriver.quit();
         new UserOperators().deleteUser(email, password);
     }
 
     @Test
-    @DisplayName("Регистрация нового пользователя с валидными данными")
+    @DisplayName("Регистрация с валидными данными")
     public void registerUserIsSuccess() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
@@ -66,24 +66,24 @@ public class RegisterPageTest {
     }
 
     @Test
-    @DisplayName("Регистрация нового пользователя с коротким паролем (4 символа)")
+    @DisplayName("Регистрация с коротким паролем (3 символа)")
     public void registerUserIncorrectPasswordFailed() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
 
         registerPage.setName(name);
         registerPage.setEmail(email);
-        registerPage.setPassword(faker.letterify("????"));
+        registerPage.setPassword(faker.letterify("111"));
 
         registerPage.clickRegisterButton();
 
-        registerPage.waitErrorIsVisible();
+        registerPage.waitTillErrorIsVisible();
 
         checkErrorMessage();
     }
 
 
-    @Step("Проверка появления сообщения об ошибке")
+    @Step("Появление сообщения об ошибке")
     private void checkErrorMessage() {
         MatcherAssert.assertThat(
                 "Некорректное сообщение об ошибке",
