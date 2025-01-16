@@ -1,3 +1,4 @@
+import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.Allure;
 import io.qameta.allure.junit4.DisplayName;
@@ -11,9 +12,6 @@ import static org.hamcrest.Matchers.equalTo;
 import org.example.references.Constants;
 import org.example.references.Browsers;
 import org.example.page.object.HomePage;
-import org.example.objects.AcceptUser;
-import org.example.objects.User;
-import io.github.bonigarcia.wdm.*;
 
 @DisplayName("Проверка главной страницы")
 public class HomePageTest {
@@ -28,6 +26,7 @@ public class HomePageTest {
             webDriver.get(Constants.HOME_PAGE_URL);
             homePage = new HomePage(webDriver);
         }
+
         @After
         @Step("Закрытие браузера")
         public void tearDown() {
@@ -37,7 +36,8 @@ public class HomePageTest {
         @Test
         @Step("Нажатие опции Булки")
         @DisplayName("Проверка работы опции Булки")
-        public void checkScrollToBunIsSuccess() {
+        @Description("Раздел Булки успешно скролится")
+        public void checkScrollToBunIsSuccessTest() {
             Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
             homePage.clickFillingsButton();
@@ -46,7 +46,7 @@ public class HomePageTest {
 
             MatcherAssert.assertThat(
                     "Список 'Булки' не отображается на странице",
-                    webDriver.findElement(homePage.getBunsTypes()).isDisplayed(),
+                    homePage.isBunsDisplayed(),
                     equalTo(true)
             );
         }
@@ -54,7 +54,8 @@ public class HomePageTest {
         @Test
         @Step("Нажатие опции Соусы")
         @DisplayName("Проверка работы опции Соусы")
-        public void checkScrollToSauceIsSuccess() {
+        @Description("Раздел соусы успешно скролится")
+        public void checkScrollToSauceIsSuccessTest() {
             Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
             homePage.clickSaucesButton();
@@ -70,7 +71,8 @@ public class HomePageTest {
         @Test
         @Step("Нажатие опции Начинки")
         @DisplayName("Проверка работы опции Начинки")
-        public void checkScrollToFillingIsSuccess() {
+        @Description("Раздел Начинки успешно скролится")
+        public void checkScrollToFillingIsSuccessTest() {
             Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
             homePage.clickFillingsButton();

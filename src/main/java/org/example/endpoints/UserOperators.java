@@ -5,9 +5,12 @@ import io.restassured.response.Response;
 import org.example.references.Constants;
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.*;
+import static org.hamcrest.Matchers.equalTo;
+
 import org.example.objects.User;
 import org.example.objects.AcceptUser;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.hamcrest.MatcherAssert;
 
 public class UserOperators extends UserHttp {
     @Step("Создание пользователя")
@@ -17,7 +20,7 @@ public class UserOperators extends UserHttp {
                 .when()
                 .post(Constants.REGISTER_USER_URL);
 
-        response.getStatusCode();
+        MatcherAssert.assertThat("Код ответа не равен 200", response.getStatusCode(), equalTo(SC_OK));
     }
 
     @Step("Удаление пользователя")

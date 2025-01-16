@@ -1,0 +1,11 @@
+org\example\objects\User.class
+org\example\objects\AcceptUser.class
+org\example\page\object\LostPasswordPage.class
+org\example\endpoints\UserHttp.class
+org\example\references\Browsers.class
+org\example\page\object\RegisterPage.class
+org\example\page\object\HomePage.class
+org\example\endpoints\UserOperators.class
+org\example\page\object\ProfilePage.class
+org\example\references\Constants.class
+org\example\page\object\AuthorisationPage.class

@@ -1,4 +1,5 @@
 import io.qameta.allure.Allure;
+import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import com.github.javafaker.Faker;
 import io.qameta.allure.junit4.DisplayName;
@@ -76,7 +77,8 @@ public class ProfilePageTest {
     }
     @Test
     @DisplayName("Проверка перехода в 'Личный кабинет'")
-    public void checkLinkToProfileIsSuccess() {
+    @Description("Успешный переход по ссылке профиля в личный кабинет")
+    public void checkLinkToProfileIsSuccessTest() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
         goToProfile();
         MatcherAssert.assertThat(
@@ -88,7 +90,8 @@ public class ProfilePageTest {
 
     @Test
     @DisplayName("Проверка перехода по клику по 'Конструктор'")
-    public void checkLinkToConstructorIsSuccess() {
+    @Description("Успешный переход по клику по Конструктору")
+    public void checkLinkToConstructorIsSuccessTest() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
         goToProfile();
@@ -104,7 +107,8 @@ public class ProfilePageTest {
     }
     @Test
     @DisplayName("Проверка перехода по клику логотипа Stellar Burgers")
-    public void checkLinkOnLogoIsSuccess() {
+    @Description("Успешный переход при клике по логотипу")
+    public void checkLinkOnLogoIsSuccessTest() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
         goToProfile();
@@ -120,7 +124,8 @@ public class ProfilePageTest {
     }
     @Test
     @DisplayName("Проверка выхода из профиля по клику кнопки 'Выйти'")
-    public void checkLinkLogOutIsSuccess() {
+    @Description("Успешный выход из профиля по клике кнопки Выйти")
+    public void checkLinkLogOutIsSuccessTest() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
         goToProfile();

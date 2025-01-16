@@ -1,5 +1,6 @@
 import io.qameta.allure.Allure;
 import com.github.javafaker.Faker;
+import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import org.example.endpoints.UserOperators;
@@ -59,22 +60,15 @@ public class AutorisationPageTest {
         new UserOperators().deleteUser(email, password);
     }
 
-    @Step("Авторизация")
-    private void authUser() {
-        authPage.setEmail(email);
-        authPage.setPassword(password);
-        authPage.clickAuthButton();
-        authPage.waitFormIsSubmitted();
-    }
-
     @Test
     @DisplayName("Вход по кнопке 'Войти в аккаунт' на главной")
-    public void authHomePageButtonIsSuccess() {
+    @Description("Проверка авторизации по кнопке на главной странице")
+    public void authHomePageButtonIsSuccessTest() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
         homePage.clickAuthButton();
         authPage.waitAuthFormVisible();
-        authUser();
+        authPage.authUser(email, password);
 
         MatcherAssert.assertThat(
                 "Текст на кнопке должен поменяться на 'Оформить заказ'",
@@ -85,12 +79,13 @@ public class AutorisationPageTest {
 
     @Test
     @DisplayName("Вход по кнопке 'Личный Кабинет' вверху страницы")
-    public void authProfileButtonIsSuccess() {
+    @Description("Успешный вход по кнопке вверху страницы")
+    public void authProfileButtonIsSuccessTest() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
         homePage.clickLinkToProfile();
         authPage.waitAuthFormVisible();
-        authUser();
+        authPage.authUser(email, password);
 
         MatcherAssert.assertThat(
                 "Текст 'Войти в аккаунт' должен поменяться на 'Оформить заказ'",
@@ -101,17 +96,40 @@ public class AutorisationPageTest {
 
     @Test
     @DisplayName("Вход по форме восстановления пароля")
-    public void authLinkLostPasswordFormIsSuccess() {
+    @Description("Успешный вход по форме восстанновления пароля")
+    public void authLinkLostPassFormIsSuccessTest() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
         webDriver.get(Constants.LOST_PASSWORD_URL);
 
         regPage.clickAuthLink();
         authPage.waitAuthFormVisible();
-        authUser();
+        authPage.authUser(email, password);
 
         MatcherAssert.assertThat(
                 "Текст на кнопке 'Войти в аккаунт' меняется на 'Оформить заказ'",
+                homePage.getAuthButtonText(),
+                equalTo("Оформить заказ")
+        );
+    }
+
+    @Test
+    @DisplayName("Вход по кнопке в форме регистрации")
+    @Description("Успешная авторизация по кнопке в форме регистрации")
+    public void authThroughRegisterButtonIsSuccessTest() {
+        Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
+        webDriver.get(Constants.REGISTER_PAGE_URL);
+
+        regPage.setName(name);
+        regPage.setEmail(email);
+        regPage.setPassword(password);
+
+        regPage.clickRegisterButton();
+        authPage.waitAuthFormVisible();
+        authPage.authUser(email, password);
+
+        MatcherAssert.assertThat(
+                "Текст на кнопке должен меняться на 'Оформить заказ'",
                 homePage.getAuthButtonText(),
                 equalTo("Оформить заказ")
         );

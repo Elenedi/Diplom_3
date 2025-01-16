@@ -20,6 +20,14 @@ public class AuthorisationPage {
         this.webDriver = webDriver;
     }
 
+    @Step("Авторизация")
+    public void authUser(String email, String password) {
+        setEmail(email);
+        setPassword(password);
+        clickAuthButton();
+        waitFormIsSubmitted();
+    }
+
     @Step("Ввод данных в поле 'Email'")
     public void setEmail(String email) {
         webDriver.findElements(inputsField).get(0).sendKeys(email);
@@ -34,14 +42,17 @@ public class AuthorisationPage {
         waitWhenButtonIsClickable();
         webDriver.findElement(authButton).click();
     }
+    @Step("Ожидание пока кнопка не станет кликабельной")
     private void waitWhenButtonIsClickable() {
         new WebDriverWait(webDriver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.invisibilityOf(webDriver.findElement(modalOverlay)));
     }
+    @Step("Ожидание отправки формы авторизации")
     public void waitFormIsSubmitted() {
         new WebDriverWait(webDriver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(header));
     }
+    @Step("Ожидание пока форма авторизации не станет видимой")
     public void waitAuthFormVisible() {
         new WebDriverWait(webDriver, Duration.ofSeconds(30))
                 .until(ExpectedConditions.textToBe(title, "Вход"));

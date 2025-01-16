@@ -1,5 +1,6 @@
 
 import io.qameta.allure.Allure;
+import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import com.github.javafaker.Faker;
 import io.qameta.allure.junit4.DisplayName;
@@ -52,7 +53,8 @@ public class RegisterPageTest {
 
     @Test
     @DisplayName("Регистрация с валидными данными")
-    public void registerUserIsSuccess() {
+    @Description("Успешная регистрация пользователя")
+    public void registerUserIsSuccessTest() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
 
@@ -62,12 +64,14 @@ public class RegisterPageTest {
 
         registerPage.clickRegisterButton();
 
-        registerPage.waitFormIsSubmitted("Вход");
+        MatcherAssert.assertThat("Форма не была отправлена",
+                webDriver.getTitle(), equalTo("Вход"));
     }
 
     @Test
     @DisplayName("Регистрация с коротким паролем (3 символа)")
-    public void registerUserIncorrectPasswordFailed() {
+    @Description("Сообщение об ошибке при регистрации с коротким паролем")
+    public void registerUserIncorrectPassFailedTest() {
         Allure.parameter("Браузер", System.getProperty("browser", "chrome"));
 
 

@@ -15,7 +15,6 @@ public class HomePage {
 
     private final By constructorButton = By.xpath(".//p[starts-with(@class,'AppHeader_header__linkText') and text()='Конструктор']");
     private final By orderFeedButton = By.xpath(".//p[starts-with(@class,'AppHeader_header__linkText') and text()='Лента заказов']");
-    @Getter
     private final By profileButton = By.xpath(".//p[starts-with(@class,'AppHeader_header__linkText') and text()='Личный Кабинет']");
 
     private final By bunsButton = By.xpath(".//section[starts-with(@class, 'BurgerIngredients_ingredients')]/div/div/span[text()='Булки']");
@@ -42,6 +41,11 @@ public class HomePage {
         waitWhenButtonIsClickable();
         webDriver.findElement(authButton).click();
     }
+
+    public boolean isBunsDisplayed() {
+        return webDriver.findElement(getBunsTypes()).isDisplayed();
+    }
+
     public void waitWhenButtonIsClickable() {
         new WebDriverWait(webDriver, Duration.ofSeconds(30))
                 .until(ExpectedConditions.invisibilityOf(webDriver.findElement(modalOverlay)));
