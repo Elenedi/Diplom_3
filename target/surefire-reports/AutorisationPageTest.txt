@@ -1,14 +1,14 @@
 -------------------------------------------------------------------------------
 Test set: AutorisationPageTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 76.216 s <<< FAILURE! - in AutorisationPageTest
-authThroughRegisterButtonIsSuccessTest(AutorisationPageTest)  Time elapsed: 38.693 s  <<< ERROR!
+Tests run: 4, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 79.444 s <<< FAILURE! - in AutorisationPageTest
+authThroughRegisterButtonIsSuccessTest(AutorisationPageTest)  Time elapsed: 38.398 s  <<< ERROR!
 org.openqa.selenium.TimeoutException: 
 Expected condition failed: waiting for element found by By.xpath: .//main//h2 to have text "Вход". Current text: "Регистрация" (tried for 30 second(s) with 500 milliseconds interval)
 Build info: version: '4.21.0', revision: '79ed462ef4'
 System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.24'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 131.0.6778.265, chrome: {chromedriverVersion: 131.0.6778.85 (3d81e41b6f3a..., userDataDir: C:\Users\111\AppData\Local\...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:54296}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:54296/devtoo..., se:cdpVersion: 131.0.6778.265, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: e79f3a2a3839133d6d146175ad07d046
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 131.0.6778.265, chrome: {chromedriverVersion: 131.0.6778.85 (3d81e41b6f3a..., userDataDir: C:\Users\111\AppData\Local\...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:52579}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:52579/devtoo..., se:cdpVersion: 131.0.6778.265, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 2066caf591f979e7a195537d2e1ae067
 	at AutorisationPageTest.authThroughRegisterButtonIsSuccessTest(AutorisationPageTest.java:128)
 

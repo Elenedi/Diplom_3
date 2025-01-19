@@ -39,14 +39,19 @@ public class RegisterPage {
         webDriver.findElement(registerButton).click();
     }
 
+    @Step
     private void waitWhenButtonIsClickable() {
         new WebDriverWait(webDriver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.invisibilityOf(webDriver.findElement(modalOverlay)));
     }
+
+    @Step
     public void waitFormIsSubmitted(String expectedTitle) {
         new WebDriverWait(webDriver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.textToBe(title, expectedTitle));
     }
+
+    @Step
     public void waitTillErrorIsVisible() {
         new WebDriverWait(webDriver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOf(webDriver.findElement(errorMessage)));
@@ -54,6 +59,7 @@ public class RegisterPage {
     public String getErrorMessage() {
         return webDriver.findElement(errorMessage).getText();
     }
+    @Step
     public void clickAuthLink() {
         waitWhenButtonIsClickable();
         webDriver.findElement(authLink).click();

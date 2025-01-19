@@ -1,5 +1,6 @@
 package org.example.page.object;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,10 +16,12 @@ public class LostPasswordPage {
     public LostPasswordPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
+    @Step
     public void clickAuthLink() {
         waitWhenButtonIsClickable();
         webDriver.findElement(authLink).click();
     }
+    @Step
     private void waitWhenButtonIsClickable() {
         new WebDriverWait(webDriver, Duration.ofSeconds(20))
                 .until(ExpectedConditions.invisibilityOf(webDriver.findElement(modalOverlay)));

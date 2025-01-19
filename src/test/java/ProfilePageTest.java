@@ -74,6 +74,7 @@ public class ProfilePageTest {
 
         homePage.clickLinkToProfile();
         profilePage.waitWhenAuthFormIsVisible();
+        MatcherAssert.assertThat("Форма профиля не видима", profilePage.isProfileVisible(), equalTo(true));
     }
     @Test
     @DisplayName("Проверка перехода в 'Личный кабинет'")

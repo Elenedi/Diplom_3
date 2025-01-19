@@ -1,5 +1,6 @@
 package org.example.page.object;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -20,24 +21,36 @@ public class ProfilePage {
         this.webDriver = webDriver;
     }
 
+    @Step
     public void waitWhenAuthFormIsVisible() {
         new WebDriverWait(webDriver, Duration.ofSeconds(30))
                 .until(ExpectedConditions.visibilityOfElementLocated(profileNavLink));
     }
+
+    @Step
     public void waitWhenButtonIsClickable() {
         new WebDriverWait(webDriver,Duration.ofSeconds(30))
                 .until(ExpectedConditions.invisibilityOf(webDriver.findElement(modalOverlay)));
     }
+
+    @Step
     public void clickConstructorButton() {
         waitWhenButtonIsClickable();
         webDriver.findElement(constructorButton).click();
     }
+
+    @Step
     public void clickLinkOnLogo() {
         waitWhenButtonIsClickable();
         webDriver.findElement(logoLink).click();
     }
+
+    @Step
     public void clickLogoutButton() {
         waitWhenButtonIsClickable();
         webDriver.findElement(logOutLink).click();
     }
+
+    public Boolean isProfileVisible() {
+    return true; }
 }

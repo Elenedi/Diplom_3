@@ -1,5 +1,6 @@
 package org.example.page.object;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -37,23 +38,29 @@ public class HomePage {
     public HomePage (WebDriver webDriver) {
         this.webDriver = webDriver;
     }
+    @Step
     public void clickAuthButton() {
         waitWhenButtonIsClickable();
         webDriver.findElement(authButton).click();
     }
 
+    @Step
     public boolean isBunsDisplayed() {
         return webDriver.findElement(getBunsTypes()).isDisplayed();
     }
 
+    @Step
     public void waitWhenButtonIsClickable() {
         new WebDriverWait(webDriver, Duration.ofSeconds(30))
                 .until(ExpectedConditions.invisibilityOf(webDriver.findElement(modalOverlay)));
     }
+
+    @Step
     public void waitHeaderIsVisible() {
         new WebDriverWait(webDriver, Duration.ofSeconds(30))
                 .until(ExpectedConditions.visibilityOfElementLocated(header));
     }
+    @Step
     public void scrollAndWait(By elementLocator) {
         WebElement element = new WebDriverWait(webDriver, Duration.ofSeconds(30))
                 .until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
@@ -66,18 +73,19 @@ public class HomePage {
                 .until(ExpectedConditions.visibilityOf(element));
     }
 
+    @Step
     public void clickConstructorButton() {
         waitWhenButtonIsClickable();
         webDriver.findElement(constructorButton).click();
     }
 
-
+    @Step
     public void clickOrderFeedButton() {
         waitWhenButtonIsClickable();
         webDriver.findElement(orderFeedButton).click();
     }
 
-
+    @Step
     public void clickLinkToProfile() {
         waitWhenButtonIsClickable();
         webDriver.findElement(profileButton).click();
@@ -87,18 +95,21 @@ public class HomePage {
         return webDriver.findElement(authButton).getText();
     }
 
+    @Step
     public void clickBunsButton() {
         waitWhenButtonIsClickable();
         webDriver.findElement(bunsButton).click();
         scrollAndWait(bunsTypes);
     }
 
+    @Step
     public void clickSaucesButton() {
         waitWhenButtonIsClickable();
         webDriver.findElement(saucesButton).click();
         scrollAndWait(saucesTypes);
     }
 
+    @Step
     public void clickFillingsButton() {
         waitWhenButtonIsClickable();
         webDriver.findElement(fillingsButton).click();
