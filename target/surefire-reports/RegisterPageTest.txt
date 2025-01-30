@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: RegisterPageTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 11.646 s <<< FAILURE! - in RegisterPageTest
+registerUserIsSuccessTest(RegisterPageTest)  Time elapsed: 5.675 s  <<< FAILURE!
+java.lang.AssertionError: 
+Форма не была отправлена
+Expected: "Вход"
+     but: was "Stellar Burgers"
+	at RegisterPageTest.registerUserIsSuccessTest(RegisterPageTest.java:67)
+
